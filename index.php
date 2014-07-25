@@ -1,13 +1,15 @@
 <?php
 require_once 'XML/RPC2/Client.php';
+require_once 'config.php';
+
 //must be of the main account used on the OpenX installation.
-$oxLogin = array("username"=>"adm","password"=>"admpass");
+$oxLogin = array("username"=>ADM_USERNAME,"password"=>ADM_PASSWORD);
 
 //The “ox.” prefix for the RPC service is default and does not need to be changed.
-$opts = array('prefix' => 'ox.');
+$opts = array('prefix' =>PREFIX);
 $advertiserId = 2;
 
-$client = XML_RPC2_Client::create('http://localhost/revive/www/api/v2/xmlrpc/', $opts);
+$client = XML_RPC2_Client::create(URL_XML_RPC2_CLIENT, $opts);
 
 try {
 
