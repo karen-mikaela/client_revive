@@ -43,6 +43,9 @@ try {
     echo "get advertiserDailyStatistics \n";
     print_r($result);
 
+//*******************************************
+//**************** ADVERTISER
+//*******************************************
 
     /* Create new advertiser */
     $advertiserData = array(
@@ -68,10 +71,17 @@ try {
         echo "couldnt deleted new_advertiserId \n";
     }
 
+//*******************************************
+//**************** CAMPAIGN
+//*******************************************
+
     $campaignData = array(
                         "advertiserId"=>2,
-                        "campaignName"=>"Campaign xpto 2",
-                        "impressions"=>1000);
+                        "campaignName"=>"CPC Campanha com priodidade com endDate",
+                        "impressions"=>1000,
+                        //"endDate"=> Date('2015-01-01'),
+                        "priority"=>-1,
+                        "revenueType"=>2);
 
     /* Create new campaign */
     $newCampaignId = $client->addCampaign($sessionId,$campaignData);
@@ -102,6 +112,55 @@ try {
     }else{
         echo "couldnt modified_acampaign \n";
     }
+
+
+//*******************************************
+//**************** BANNER
+//*******************************************
+    $bannerData = array(
+                        "campaignId"=>7,
+                        "bannerName"=>"banner xpto 2",
+                        "storageType"=>'url',
+                        "imageURL"=>"http://bla.bla.com.jpg");
+
+    /* Create new banner */
+    $newBannerId = false;//$client->addBanner($sessionId,$bannerData);
+    if($newBannerId){
+        $result_new_getBanner = $client->getBanner($sessionId,$newBannerId);
+        echo "print result_new_getBanner \n";
+        print_r($result_new_getBanner);
+    }else{
+        echo "couldnt create result_new_getBanner \n";
+    }
+
+    /* Delete banner $bannerId */
+    $deleted_banner = false;//$client->deleteCampaign($sessionId,3);
+    if($deleted_banner){
+        echo "print deleted_banner \n";
+    }else{
+        echo "couldnt deleted deleted_banner \n";
+    }
+
+    /* Modify banner $bannerId */
+    $x_bannernData = array(
+                    "bannerId"=>4,
+                    "bannerName"=>"Banner xyz",
+                    "imageURL"=>"http://123.bla.com.jpg");
+    $modified_banner = $client->modifyBanner($sessionId,$x_bannernData);
+    if($modified_banner){
+        echo "print modified_banner \n";
+    }else{
+        echo "couldnt modified_banner \n";
+    }
+
+    /* list banner*/
+    $bannerListByCampaignId = false;//$client->getBannerListByCampaignId($sessionId,7);
+    if($bannerListByCampaignId){
+        for($i=0; $i< count($bannerListByCampaignId); $i++){
+            print_r($bannerListByCampaignId[$i]);
+        }
+    }
+
 
 
 
