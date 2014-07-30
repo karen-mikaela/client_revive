@@ -9,6 +9,8 @@
 * sure all of your variable have a defined typ
 */
 require_once 'XML/RPC2/Client.php';
+
+require_once 'XML/RPC/Server.php';
 require_once 'config.php';
 
 //must be of the main account used on the OpenX installation.
@@ -29,19 +31,19 @@ try {
 
     echo "<pre>";
     echo "get getAdvertiser \n";
-    $advertiserId = 2;
+    $advertiserId = 1;
     /* Get advertiser info for $advertiserId */
-    $result = $client->getAdvertiser($sessionId,$advertiserId);
-    print_r($result);
+//    $result = $client->getAdvertiser($sessionId,$advertiserId);
+//    print_r($result);
 
 
     // The advertiserDailyStatistics function returns an array of
     // all days in which the advertiser was active, if there is no
     // specific date passed as one of the parameters.
     /* Get advertiser daily stats for $advertiserId */
-    $result = $client->advertiserDailyStatistics($sessionId,$advertiserId);
-    echo "get advertiserDailyStatistics \n";
-    print_r($result);
+//    $result = $client->advertiserDailyStatistics($sessionId,$advertiserId);
+//    echo "get advertiserDailyStatistics \n";
+//    print_r($result);
 
 //*******************************************
 //**************** ADVERTISER
@@ -76,13 +78,16 @@ try {
 //*******************************************
 
     $campaignData = array(
-                        "advertiserId"=>2,
-                        "campaignName"=>"CPC Campanha com priodidade com endDate",
+                        "advertiserId"=>1,
+                        "campaignName"=>"CPC cntract Campanha com priodidade com e start endDate",
                         "impressions"=>1000,
-                        //"endDate"=> Date('2015-01-01'),
-                        "priority"=>-1,
-                        "revenueType"=>2);
-
+                        "endDate"=>"2016-11-01",
+                        "startDate"=>"2016-02-02",
+                        "priority"=>1,
+                        "revenueType"=>2,
+                        "revenue"=>0.3,
+                        "weight"=>0);
+    print_r($campaignData);
     /* Create new campaign */
     $newCampaignId = $client->addCampaign($sessionId,$campaignData);
     if($newCampaignId){
@@ -106,7 +111,7 @@ try {
                     "campaignId"=>7,
                     "campaignName"=>"Campaign xpto blbla",
                     "impressions"=>50);
-    $modified_acampaign = $client->modifyCampaign($sessionId,$x_campaignData);
+    $modified_acampaign = false;//$client->modifyCampaign($sessionId,$x_campaignData);
     if($modified_acampaign){
         echo "print modified_acampaign \n";
     }else{
@@ -146,7 +151,7 @@ try {
                     "bannerId"=>4,
                     "bannerName"=>"Banner xyz",
                     "imageURL"=>"http://123.bla.com.jpg");
-    $modified_banner = $client->modifyBanner($sessionId,$x_bannernData);
+    $modified_banner = false;//$client->modifyBanner($sessionId,$x_bannernData);
     if($modified_banner){
         echo "print modified_banner \n";
     }else{
